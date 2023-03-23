@@ -1,44 +1,45 @@
 import os
 
-headers = ["content-type: text/html"]
+headers = ["Content-Type: text/html"]
 
-print("content-type: text/html\n")
+# print("content-type: text/html\n")
 qs = os.environ['QUERY_STRING']
 
 
-def sendHeaders():
+def sendHeader():
     for h in headers:
         print(h)
         print("\n")
 
 
-def sendform():
+def sendForm():
     print('''
     <html>
-    <body><form action ='ssp2.py' method='get'>
+        <body>
+          <form action ="ssp2.py" method="get">
             <label for="myname"> enter your name </label>
-            <input type="text" name="firstname" id="myname" value="Shiv"/>
-            <input type="button" >
-        </form> 
+            <input id="myname" type="text" name="firstname" value="Shiv"/>
+            <input type="submit"/>
+          </form> 
         </body>
-        </html>
+    </html>
     ''')
-
-    def sendpage(name):
+    
+def sendPage(name):
         print('''
         <html>
-        <body>
-        <h1>hello %s</h1>
-        </body>
-        '''.format(name))
-        if not qs:
-            sendHeaders()
-            sendform()
-        else:
-            if 'firstname' in qs:
-                name = qs.split('=')[1]
-            else:
-                name = 'no Name Provided'
-            sendHeaders()
-            sendpage(name)
+          <body>
+             <h1>hello {0}</h1>
+          </body>
+        </html>'''.format(name))
 
+if not qs:
+            sendHeader()
+            sendForm()
+else:
+    if "firstname" in qs:
+                name = qs.split('=')[1]
+    else:
+                name = "no Name Provided"
+    sendHeader()
+    sendPage(name)
